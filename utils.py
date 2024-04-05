@@ -171,6 +171,7 @@ def variance_profile(name, n, p, tau = 0.05, tau2 = 10, tau3 = 0.1, const = 1, p
       Returns:
       n*p array: The wanted variance profile.
   """
+  Gamma = np.ones((n,p))
   if name == 'constant':
     Gamma = const * np.ones((n,p))
   if name == 'const_piecewise':
@@ -195,11 +196,11 @@ def variance_profile(name, n, p, tau = 0.05, tau2 = 10, tau3 = 0.1, const = 1, p
     Gamma[:,0::2] = col1
     Gamma[:,1::2] = col2
   if name == 'bernoulli':
-    Gamma =  np.random.binomial(1,prob_times_p / p ,size=(n,p))
+    Gamma =  np.random.binomial(1,prob / p ,size=(n,p))
   if name == 'bernoulli_piecewise':
     Gamma = np.ones((n,p))
-    Gamma[0:n//4,0:p//4] = np.random.binomial(1,prob_times_p / p ,size=Gamma[0:n//4,0:p//4].shape)
-    Gamma[n//4:,p//4:] = np.random.binomial(1,prob_times_p / p ,size=Gamma[n//4:,p//4:].shape)
+    Gamma[0:n//4,0:p//4] = np.random.binomial(1,prob / p ,size=Gamma[0:n//4,0:p//4].shape)
+    Gamma[n//4:,p//4:] = np.random.binomial(1,prob / p ,size=Gamma[n//4:,p//4:].shape)
   if name == 'doubly_stochastic':
     Gamma = np.zeros((n,p))
     Inter = np.zeros((n,p))
